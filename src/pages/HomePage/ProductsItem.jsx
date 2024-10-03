@@ -3,14 +3,21 @@ import OverviewModal from "./OverviewModal";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { popSlice } from "../../store/ReduxStore";
 import { useNavigate } from "react-router-dom";
-export default function ProductsItem({ item, index, popUpClass }) {
+export default function ProductsItem({ item, index, showModal, popUpClass }) {
   const dispatch = useDispatch();
   const popState = useSelector((state) => state.popUpReducer[index].popUp);
   const popArrState = useSelector((state) => state.popUpReducer);
   // console.log("new popUp array: ", popArrState);
   const navigate = useNavigate();
   function handleOnClick() {
-    dispatch(popSlice.actions.show_popup(index));
+    // if clicked in homepage
+    if (showModal) {
+      dispatch(popSlice.actions.show_popup(index));
+    }
+    // if clicked in shop page
+    else {
+      navigate(`/detail/${item._id["$oid"]}`);
+    }
   }
   let havePoped = false;
   popArrState.forEach((popState) => {
@@ -20,7 +27,7 @@ export default function ProductsItem({ item, index, popUpClass }) {
   });
   return (
     <>
-      {popState && (
+      {popState && showModal && (
         <OverviewModal
           item={item}
           index={index}
