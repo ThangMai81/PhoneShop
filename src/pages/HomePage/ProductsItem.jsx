@@ -11,7 +11,7 @@ export default function ProductsItem({ item, index, showModal, popUpClass }) {
   const navigate = useNavigate();
   function handleOnClick() {
     // if clicked in homepage
-    if (showModal == true) {
+    if (showModal === true) {
       dispatch(popSlice.actions.show_popup(index));
     }
     // if clicked in shop page

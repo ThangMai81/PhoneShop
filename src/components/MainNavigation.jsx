@@ -14,11 +14,13 @@ function MainNavigation() {
   // This state is to ensure not show the modal of categories in homepage whenever click the
   // home again
   const popUpArr = useSelector((state) => state.popUpReducer);
-  popUpArr.forEach((eachState, index) => {
-    if (eachState.popUp === true) {
-      dispatch(popSlice.actions.hide_popup(index));
-    }
-  });
+  function handleRemoveModal() {
+    popUpArr.forEach((eachState, index) => {
+      if (eachState.popUp === true) {
+        dispatch(popSlice.actions.hide_popup(index));
+      }
+    });
+  }
   // const loginState = Object.keys(userLogin).length > 0;
   // This state is just to ensure if the user has loggined before, after they had got access to the website again,
   // the state isLogin in redux store must be true, to show the username that has been used in local storage
@@ -60,6 +62,7 @@ function MainNavigation() {
               className={({ isActive }) =>
                 isActive ? `text-yellow-500` : undefined
               }
+              onClick={handleRemoveModal}
               end
             >
               Home
