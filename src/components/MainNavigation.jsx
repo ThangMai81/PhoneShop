@@ -2,11 +2,23 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaCartPlus, FaPersonBooth, FaShopify, FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { addToCartButtonSlice, loginSlice } from "../store/ReduxStore";
+import {
+  addToCartButtonSlice,
+  loginSlice,
+  popSlice,
+} from "../store/ReduxStore";
 function MainNavigation() {
   const dispatch = useDispatch();
   const userArr = JSON.parse(localStorage.getItem("userArr")) || [];
   const userLogin = JSON.parse(localStorage.getItem("user-login")) || {};
+  // This state is to ensure not show the modal of categories in homepage whenever click the
+  // home again
+  const popUpArr = useSelector((state) => state.popUpReducer);
+  popUpArr.forEach((eachState, index) => {
+    if (eachState.popUp === true) {
+      dispatch(popSlice.actions.hide_popup(index));
+    }
+  });
   // const loginState = Object.keys(userLogin).length > 0;
   // This state is just to ensure if the user has loggined before, after they had got access to the website again,
   // the state isLogin in redux store must be true, to show the username that has been used in local storage
