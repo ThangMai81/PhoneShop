@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import bannerImg from "/banner1.jpg";
+import bannerImg from "../../../dist/banner1-Cse-aIxK.jpg";
 
 export default function Banner({ popUpClass }) {
   // const popUpState = useSelector((state) => state.popUpReducer);
