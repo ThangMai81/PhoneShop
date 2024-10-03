@@ -46,7 +46,7 @@ function OverviewModal({ item, index }) {
           className="border-2 border-black absolute top-0 right-0 w-[20px] h-[20px] text-center"
           onClick={handleNotShowModal}
         >
-          <span className="">
+          <span className="hover:cursor-pointer">
             <IoMdClose />
           </span>
         </button>
