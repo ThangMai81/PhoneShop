@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main # Change this to the default branch name
+      - master # Change this to the default branch name
 
 permissions:
   contents: read
