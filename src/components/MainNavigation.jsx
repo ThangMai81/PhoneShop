@@ -48,6 +48,7 @@ function MainNavigation() {
               className={({ isActive }) =>
                 isActive ? `text-yellow-500` : undefined
               }
+              end
             >
               Home
             </NavLink>

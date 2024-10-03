@@ -1,6 +1,12 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import product1 from "../../../public/product_1.png";
+import product2 from "../../../public/product_2.png";
+import product3 from "../../../public/product_3.png";
+import product4 from "../../../public/product_4.png";
+import product5 from "../../../public/product_5.png";
+
 export default function Categories({ popUpClass }) {
   const navigate = useNavigate();
   function handleNavigateShopPage() {
@@ -30,29 +36,29 @@ export default function Categories({ popUpClass }) {
       <div>
         <div className="grid grid-cols-2 mb-[20px] gap-[20px]">
           <img
-            src="../../../public/product_1.png"
+            src={product1}
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
           <img
-            src="../../../public/product_2.png"
+            src={product2}
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
         </div>
         <div className="grid grid-cols-3 gap-[20px]">
           <img
-            src="../../../public/product_3.png"
+            src={product3}
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
           <img
-            src="../../../public/product_4.png"
+            src={product4}
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
           <img
-            src="../../../public/product_5.png"
+            src={product5}
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />

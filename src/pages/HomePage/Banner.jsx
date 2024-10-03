@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import bannerImg from "../../../public/banner1.jpg";
+
 export default function Banner({ popUpClass }) {
   // const popUpState = useSelector((state) => state.popUpReducer);
   // let isPopUp = false;
@@ -12,7 +14,7 @@ export default function Banner({ popUpClass }) {
   // }
   return (
     <div className={`relative ${popUpClass}`}>
-      <img src="../../banner1.jpg" className="h-[400px]" />
+      <img src={bannerImg} className="h-[400px]" />
       <div className="absolute left-[50px] top-[30%]">
         <span className="text-neutral-400 italic uppercase text-xs">
           New Inspiration 2020
