@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SignIn from "./Authentication/SignIn";
 import SignUp from "./Authentication/SignUp";
-import banner1 from "../../public/banner1.jpg";
+import banner1 from "/banner1.jpg";
 function LoginPage() {
   const [changePage, setChangePage] = useState("Sign Up");
 

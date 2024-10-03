@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import product1 from "../../../public/product_1.png";
-import product2 from "../../../public/product_2.png";
-import product3 from "../../../public/product_3.png";
-import product4 from "../../../public/product_4.png";
-import product5 from "../../../public/product_5.png";
+import product1 from "/product_1.png";
+import product2 from "/product_2.png";
+import product3 from "/product_3.png";
+import product4 from "/product_4.png";
+import product5 from "/product_5.png";
 
 export default function Categories({ popUpClass }) {
   const navigate = useNavigate();
