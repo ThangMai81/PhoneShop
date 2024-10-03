@@ -21,7 +21,6 @@ export default function ProductsList({ listItems, popUpClass }) {
             item={eachItem}
             key={eachItem._id["$oid"]}
             index={index}
-            showModal={true}
             popUpClass={popUpClass}
           />
         ))}
