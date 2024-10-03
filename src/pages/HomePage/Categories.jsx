@@ -30,29 +30,29 @@ export default function Categories({ popUpClass }) {
       <div>
         <div className="grid grid-cols-2 mb-[20px] gap-[20px]">
           <img
-            src="../../product_1.png"
+            src="../../../public/product_1.png"
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
           <img
-            src="../../product_2.png"
+            src="../../../public/product_2.png"
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
         </div>
         <div className="grid grid-cols-3 gap-[20px]">
           <img
-            src="../../product_3.png"
+            src="../../../public/product_3.png"
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
           <img
-            src="../../product_4.png"
+            src="../../../public/product_4.png"
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />
           <img
-            src="../../product_5.png"
+            src="../../../public/product_5.png"
             onClick={handleNavigateShopPage}
             className={hoverEff}
           />

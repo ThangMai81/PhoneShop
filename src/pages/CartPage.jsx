@@ -79,9 +79,9 @@ function CartPage() {
   }
   function handleNavigateAfterCheckItems(type) {
     if (type === "shop") {
-      navigate("/shop");
+      navigate("/PhoneShop/shop");
     } else {
-      navigate("/checkout");
+      navigate("/PhoneShop/checkout");
     }
   }
   return (

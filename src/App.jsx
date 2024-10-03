@@ -18,7 +18,7 @@ import { store } from "./store/ReduxStore";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/PhoneShop",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     loader: HomePageLoader,
