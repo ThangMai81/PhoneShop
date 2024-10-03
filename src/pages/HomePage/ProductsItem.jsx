@@ -16,7 +16,7 @@ export default function ProductsItem({ item, index, showModal, popUpClass }) {
     }
     // if clicked in shop page
     else {
-      navigate(`/detail/${item._id["$oid"]}`);
+      navigate(`/PhoneShop/detail/${item._id["$oid"]}`);
     }
   }
   let havePoped = false;
