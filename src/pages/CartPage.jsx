@@ -112,7 +112,7 @@ function CartPage() {
             </div>
             {showListItems}
             {/* Continue shopping or proceed to checkout */}
-            <div className="bg-slate-100 p-[10px] h-[50px] text-sm flex flex-row justify-between">
+            <div className="bg-slate-100 p-[10px] h-[50px] text-sm flex flex-row justify-between mb-[10px]">
               <div className="flex flex-row items-center">
                 <HiArrowLongLeft className="inline mr-[2px] mt-[2px]" />
                 <button

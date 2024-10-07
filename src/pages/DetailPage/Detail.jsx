@@ -73,13 +73,16 @@ export default function Detail({ listItems, productId }) {
             <p className="font-semibold text-2xl italic mb-[10px]">
               {item.name}
             </p>
-            <h1 className="text-slate-200 italic mb-[10px]">
+            <h1 className="text-slate-400 italic mb-[10px]">
               {`${Number(item.price).toLocaleString()} VND`}
             </h1>
             <p className="mb-[10px]">{addBrToText(item.short_desc)}</p>
             <div className="mb-[10px]">
               <span className="font-[500] italic text-sm">CATEGORY:</span>
-              <span className="italic text-slate-300"> {item.category}</span>
+              <span className="italic text-slate-400 uppercase">
+                {" "}
+                {item.category}
+              </span>
             </div>
             <div className="mb-[10px] grid grid-cols-4">
               <p className="text-slate-400 border-2 px-[20px] py-[5px] flex justify-between col-span-2">
@@ -109,15 +112,14 @@ export default function Detail({ listItems, productId }) {
         {/* Description part */}
         <div className="grid grid-cols-2">
           <div className="col-span-1 flex flex-col">
-            <button className="text-white italic uppercase bg-neutral-800 p-[10px] text-sm w-[120px] mb-[10px]">
+            <button className="text-white italic uppercase bg-neutral-800 p-[10px] text-sm w-[120px] mb-[20px]">
               Description
             </button>
             <div>
-              <h1 className="uppercase font-[500] italic mb-[30px]">
+              <h1 className="uppercase font-[500] italic mb-[20px]">
                 Product Description
               </h1>
-
-              <p className="text-slate-300 italic mb-[80px]">
+              <p className="text-slate-500 italic mb-[20px]">
                 {addBrToText(item.long_desc)}
               </p>
             </div>

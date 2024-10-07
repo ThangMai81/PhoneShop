@@ -8,10 +8,10 @@ export default function CategoriesShop() {
   const typeClick = useSelector((state) => state.categoriesReducer.typeClick);
   // Classes for className
   const choosingBrandProducts =
-    "uppercase text-sm text-slate-300 italic p-[10px] hover:bg-black hover:text-white hover:cursor-pointer hover:duration-700 ease-in-out";
+    "uppercase text-sm text-slate-500 italic p-[10px] hover:bg-black hover:text-white hover:cursor-pointer hover:duration-700 ease-in-out";
   const categoryClass = "uppercase italic bg-slate-200 p-[10px] text-sm";
   const choosingClass =
-    "text-xs text-slate-300 italic hover:text-orange-200 p-[10px]";
+    "text-xs text-slate-500 italic hover:text-orange-200 p-[10px]";
   const categoryDiv = "flex flex-col p-[5px]";
   function handleChooseBrand(brandEl) {
     dispatch(categoriesClickSlice.actions.getBrandClick(brandEl.innerHTML));

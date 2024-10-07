@@ -65,7 +65,7 @@ function CheckoutPage() {
               />
               <button
                 type="button"
-                className="italic py-[5px] px-[30px] self-start text-slate-100 bg-neutral-800 font-[300]"
+                className="italic py-[5px] px-[30px] self-start text-slate-100 bg-neutral-800 font-[300] mb-[20px]"
               >
                 Place order
               </button>
