@@ -59,7 +59,7 @@ async function loadOrderById(params) {
     throw json({ message: "Unauthorized!" }, { status: 401 });
   }
   const response = await fetch(
-    `http://localhost:5000/order/history/${orderId}`,
+    `https://PhoneShopBackEnd.onrender.com/order/history/${orderId}`,
     {
       method: "POST",
       headers: {

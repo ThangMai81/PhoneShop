@@ -71,20 +71,23 @@ function CheckoutPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:5000/order", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          name: fullName,
-          phone: phoneNumber,
-          address: address,
-          products: listItems,
-        }),
-      });
+      const response = await fetch(
+        "https://PhoneShopBackEnd.onrender.com/order",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            name: fullName,
+            phone: phoneNumber,
+            address: address,
+            products: listItems,
+          }),
+        }
+      );
 
       if (response.status === 401) {
         throw json({ message: "Unauthorized" }, { status: 401 });

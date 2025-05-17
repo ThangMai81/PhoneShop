@@ -85,19 +85,22 @@ export default function SignUp({ handleChangePage }) {
   // this function will trigger when the button is clicked (validated) to save user into storage
   async function handleSignUp() {
     try {
-      const response = await fetch("http://localhost:5000/auth/sign-up", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: fullname.value,
-          email: email.value,
-          password: password.value,
-          phone: phone.value,
-          role: "User",
-        }),
-      });
+      const response = await fetch(
+        "https://PhoneShopBackEnd.onrender.com/auth/sign-up",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: fullname.value,
+            email: email.value,
+            password: password.value,
+            phone: phone.value,
+            role: "User",
+          }),
+        }
+      );
       if (response.status != 200) {
         if (response.status === 409) {
           window.alert("Email has been used!");

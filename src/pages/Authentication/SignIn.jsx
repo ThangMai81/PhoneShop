@@ -62,13 +62,16 @@ export default function SignIn({ handleChangePage }) {
         email: emailInput.value,
         password: passwordInput.value,
       };
-      const response = await fetch("http://localhost:5000/auth/sign-in", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://PhoneShopBackEnd.onrender.com/auth/sign-in",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status !== 200) {
         if (response.status === 401) {
           window.alert("Wrong account or password, please try another");

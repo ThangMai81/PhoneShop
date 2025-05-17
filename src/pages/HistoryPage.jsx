@@ -37,13 +37,16 @@ async function loadOrderHistory() {
   if (Object.keys(authToken).length === 0) {
     throw json({ message: "Unauthorized!" }, { status: 401 });
   }
-  const response = await fetch("http://localhost:5000/order/history", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    "https://PhoneShopBackEnd.onrender.com/order/history",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
   console.log("response: ", response);
   if (response.status === 404) {
     const data = await response.json();

@@ -52,7 +52,9 @@ function HomePage() {
 export default HomePage;
 
 async function loadProducts() {
-  const response = await fetch("http://localhost:5000/product/get-all");
+  const response = await fetch(
+    "https://PhoneShopBackEnd.onrender.com/product/get-all"
+  );
   console.log("response: ", response);
   if (!response.ok) {
     throw json({ message: "Cannot fetching data..." }, { status: 500 });

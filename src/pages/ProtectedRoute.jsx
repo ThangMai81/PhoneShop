@@ -16,7 +16,7 @@ export default function ProtectedRoute() {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/auth/verify-token",
+          "https://PhoneShopBackEnd.onrender.com/auth/verify-token",
           {
             method: "POST",
             headers: {

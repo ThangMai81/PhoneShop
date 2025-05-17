@@ -33,7 +33,7 @@ function MainNavigation() {
       try {
         async function getUsername() {
           const response = await fetch(
-            "http://localhost:5000/auth/get-full-name",
+            "https://PhoneShopBackEnd.onrender.com/auth/get-full-name",
             {
               method: "POST",
               headers: {

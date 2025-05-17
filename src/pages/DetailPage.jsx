@@ -26,7 +26,9 @@ function DetailPage() {
 export default DetailPage;
 
 async function loadProductWithId(params) {
-  const response = await fetch(`http://localhost:5000/product/${params}`);
+  const response = await fetch(
+    `https://PhoneShopBackEnd.onrender.com/product/${params}`
+  );
   console.log("response: ", response);
   if (!response.ok) {
     throw json({ message: "Cannot fetching data..." }, { status: 500 });
