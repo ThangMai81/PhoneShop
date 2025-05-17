@@ -45,10 +45,10 @@ export default function Detail({ Item, RelatedProducts }) {
         Object.keys(authToken).length === 0
       ) {
         window.alert("You haven't logged in yet!");
-        navigate("/PhoneShop/login");
+        navigate("/login");
         // have logged in already
       } else {
-        navigate("/PhoneShop/cart");
+        navigate("/cart");
       }
       // mark that the add to cart has been clicked
       const itemForCart = {

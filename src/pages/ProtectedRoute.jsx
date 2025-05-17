@@ -10,7 +10,7 @@ export default function ProtectedRoute() {
   useEffect(() => {
     async function verifyToken() {
       if (!authToken || !isLogin) {
-        navigate("/PhoneShop/login");
+        navigate("/login");
         return;
       }
 
@@ -27,11 +27,11 @@ export default function ProtectedRoute() {
 
         if (!response.ok) {
           localStorage.removeItem("auth-token");
-          navigate("/PhoneShop/login");
+          navigate("/login");
         }
       } catch (error) {
         localStorage.removeItem("auth-token");
-        navigate("/PhoneShop/login");
+        navigate("/login");
       }
     }
 

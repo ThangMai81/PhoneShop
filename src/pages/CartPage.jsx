@@ -36,7 +36,7 @@ function CartPage() {
     const authToken = localStorage.getItem("auth-token") || {};
     if (Object.keys(authToken).length === 0) {
       window.alert("You must sign in first!");
-      navigate("/PhoneShop/login");
+      navigate("/login");
       return;
     }
   }, []);
@@ -88,9 +88,9 @@ function CartPage() {
   }
   function handleNavigateAfterCheckItems(type) {
     if (type === "shop") {
-      navigate("/PhoneShop/shop");
+      navigate("/shop");
     } else {
-      navigate("/PhoneShop/checkout");
+      navigate("/checkout");
     }
   }
   return (

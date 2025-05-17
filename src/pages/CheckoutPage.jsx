@@ -64,7 +64,7 @@ function CheckoutPage() {
     }
     if (Object.keys(authToken).length === 0) {
       window.alert("Please sign in first!");
-      navigate("PhoneShop/login");
+      navigate("/login");
       return;
     }
 
@@ -94,7 +94,7 @@ function CheckoutPage() {
       }
       if (response.status === 200) {
         window.alert("Order successfully!");
-        navigate("/PhoneShop/transaction");
+        navigate("/transaction");
         return;
       }
     } catch (err) {

@@ -23,7 +23,7 @@ import { loader as OrderDetailPageLoader } from "./pages/OrderDetailPage";
 
 const router = createHashRouter([
   {
-    path: "/PhoneShop",
+    path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     loader: HomePageLoader,

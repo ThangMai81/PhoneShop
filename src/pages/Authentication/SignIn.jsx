@@ -90,9 +90,9 @@ export default function SignIn({ handleChangePage }) {
       // ** these following codes are not belong to this component, this is to navigate to the cart page after logged in
       console.log(haveClicked);
       if (haveClicked) {
-        navigate("/PhoneShop/cart");
+        navigate("/cart");
       } else {
-        navigate("/PhoneShop");
+        navigate("/");
       }
       // }
     } catch (err) {
