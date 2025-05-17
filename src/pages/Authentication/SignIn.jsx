@@ -56,28 +56,37 @@ export default function SignIn({ handleChangePage }) {
     });
   }
   // after type in valid email and password and submit, check if exist in local storage
-  function handleSaveToStorage() {
-    const storageData = JSON.parse(localStorage.getItem("userArr")) || [];
-    const data = {
-      email: emailInput.value,
-      password: passwordInput.value,
-    };
-    const valid =
-      storageData.filter(
-        (eachData) =>
-          eachData.email === data.email &&
-          String(eachData.password) === String(data.password)
-      ).length > 0
-        ? true
-        : false;
-    if (!valid) {
-      window.alert(
-        "You have typed wrong account or password, please try again!"
-      );
-      passwordRef.current.value = "";
-    } else {
+  async function handleSignIn() {
+    try {
+      const data = {
+        email: emailInput.value,
+        password: passwordInput.value,
+      };
+      const response = await fetch("http://localhost:5000/auth/sign-in", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status !== 200) {
+        if (response.status === 401) {
+          window.alert("Wrong account or password, please try another");
+        }
+        console.log(err);
+      }
+      // const authToken = JSON.parse(localStorage.getItem("auth-token")) || {};
+      // const valid = Object.keys(authToken).length > 0;
+      // if (!valid) {
+      //   window.alert(
+      //     "You have typed wrong account or password, please try again!"
+      //   );
+      //   passwordRef.current.value = "";
+      // } else {
+      const resData = await response.json();
       window.alert("Login successfully!");
-      dispatch(loginSlice.actions.ON_LOGIN(data));
+      console.log("Response token: ", resData);
+      dispatch(loginSlice.actions.ON_LOGIN(resData.token));
       // ** these following codes are not belong to this component, this is to navigate to the cart page after logged in
       console.log(haveClicked);
       if (haveClicked) {
@@ -85,6 +94,9 @@ export default function SignIn({ handleChangePage }) {
       } else {
         navigate("/PhoneShop");
       }
+      // }
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -143,7 +155,7 @@ export default function SignIn({ handleChangePage }) {
             // Not valid => add opacity
             !emailValidation || !pswValidation ? "opacity-20" : ""
           }`}
-          onClick={handleSaveToStorage}
+          onClick={handleSignIn}
           // Not valid => disabled
           disabled={!emailValidation || !pswValidation ? true : false}
         >

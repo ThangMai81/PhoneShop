@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowLeft, MdArrowRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { cartSlice } from "../store/ReduxStore";
@@ -32,9 +32,18 @@ function CartPage() {
       dispatch(cartSlice.actions.DELETE_CART(item));
     }
   }
+  useEffect(() => {
+    const authToken = localStorage.getItem("auth-token") || {};
+    if (Object.keys(authToken).length === 0) {
+      window.alert("You must sign in first!");
+      navigate("/PhoneShop/login");
+      return;
+    }
+  }, []);
+  console.log("List items?: ", typeof listItems);
   const showListItems = listItems.map((eachItem) => (
     <div
-      key={eachItem.item._id["$oid"]}
+      key={eachItem.item._id}
       className="grid grid-cols-6 justify-items-center items-center px-[20px] py-[10px]"
     >
       <img src={eachItem.item.img1} className="px-[5px]" />

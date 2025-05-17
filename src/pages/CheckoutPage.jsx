@@ -1,10 +1,21 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { json, useNavigate } from "react-router-dom";
 
 function CheckoutPage() {
   const listItems = useSelector((state) => state.cartReducer);
+  const authToken = localStorage.getItem("auth-token") || {};
+  const navigate = useNavigate();
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const showListItems = listItems.map((eachItem) => (
     <div
-      key={eachItem.item._id["$oid"]}
+      key={eachItem.item._id}
       className="grid grid-cols-2 justify-between border-b-2 py-[10px]"
     >
       <div className="italic font-semibold">{eachItem.item.name}</div>
@@ -19,6 +30,79 @@ function CheckoutPage() {
       accumulator + eachItem.item.price * eachItem.quantity,
     0
   );
+
+  const validateForm = () => {
+    if (!fullName.trim()) {
+      window.alert("Please fill in full name");
+      return false;
+    }
+
+    if (!email.trim()) {
+      window.alert("Please fill in email");
+      return false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      window.alert("Email is not valid");
+      return false;
+    }
+
+    if (!phoneNumber.trim()) {
+      window.alert("Please fill in phone number");
+      return false;
+    }
+
+    if (!address.trim()) {
+      window.alert("Please fill in address");
+      return false;
+    }
+
+    return true;
+  };
+
+  async function handleOrder() {
+    if (!validateForm()) {
+      return;
+    }
+    if (Object.keys(authToken).length === 0) {
+      window.alert("Please sign in first!");
+      navigate("PhoneShop/login");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/order", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          name: fullName,
+          phone: phoneNumber,
+          address: address,
+          products: listItems,
+        }),
+      });
+
+      if (response.status === 401) {
+        throw json({ message: "Unauthorized" }, { status: 401 });
+      }
+      if (response.status === 500 || response.status === 404) {
+        throw json({ message: "Internal Server Error" }, { status: 500 });
+      }
+      if (response.status === 200) {
+        window.alert("Order successfully!");
+        navigate("/PhoneShop/transaction");
+        return;
+      }
+    } catch (err) {
+      throw json({ message: "Something wrong..." }, { status: 500 });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
   return (
     <div className="flex justify-center">
       <div className="w-[1000px]">
@@ -44,30 +128,39 @@ function CheckoutPage() {
                 type="text"
                 placeholder="Enter Your Full Name Here!"
                 className="border-2 px-[10px] py-[5px] mb-[15px]"
+                onChange={(e) => setFullName(e.target.value)}
               />
               <span className="uppercase italic mb-[5px]">Email:</span>
               <input
                 type="text"
                 placeholder="Enter Your Email Here!"
                 className="border-2 px-[10px] py-[5px] mb-[15px]"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <span className="uppercase italic mb-[5px]">Phone Number:</span>
               <input
                 type="text"
                 placeholder="Enter Your Phone Number Here!"
                 className="border-2 px-[10px] py-[5px] mb-[15px]"
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
               <span className="uppercase italic mb-[5px]">Address:</span>
               <input
                 type="text"
                 placeholder="Enter Your Address Here!"
                 className="border-2 px-[10px] py-[5px] mb-[15px]"
+                onChange={(e) => setAddress(e.target.value)}
               />
               <button
                 type="button"
-                className="italic py-[5px] px-[30px] self-start text-slate-100 bg-neutral-800 font-[300] mb-[20px]"
+                className={`italic py-[5px] px-[30px] self-start text-slate-100 bg-neutral-800 font-[300] mb-[20px] ${
+                  isSubmitting
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-neutral-800"
+                }`}
+                onClick={handleOrder}
               >
-                Place order
+                {isSubmitting ? "Processing..." : "Place order"}
               </button>
             </form>
           </div>

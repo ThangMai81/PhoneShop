@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const userArr = [];
 export default function SignUp({ handleChangePage }) {
-  const getUserArr = JSON.parse(localStorage.getItem("userArr")) || [];
   const inputClass = "block border-2 border-neutral-300 p-[15px] ";
   const warningEmailClass = "text-red-700 italic absolute top-[40px]";
   const warningPasswordClass = "text-red-700 italic absolute top-[60px]";
@@ -23,11 +22,9 @@ export default function SignUp({ handleChangePage }) {
     value: 1,
     isFocused: false,
   });
+  const [sameEmail, setSameEmail] = useState(false);
 
   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  const sameEmail =
-    getUserArr.filter((eachAccount) => eachAccount.email === email.value)
-      .length > 0;
   const emailValid = regex.test(email.value) && !sameEmail;
   const passwordValid = password.value.length >= 8;
   const fullFieldValid =
@@ -86,16 +83,43 @@ export default function SignUp({ handleChangePage }) {
     });
   }
   // this function will trigger when the button is clicked (validated) to save user into storage
-  function handleSaveToStorage() {
-    userArr.push({
-      fullname: fullname.value,
-      email: email.value,
-      password: password.value,
-      phone: phone.value,
-    });
-    localStorage.setItem("userArr", JSON.stringify(userArr));
-    window.alert("Sign up successfully!");
-    handleChangePage("Sign In");
+  async function handleSignUp() {
+    try {
+      const response = await fetch("http://localhost:5000/auth/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullname.value,
+          email: email.value,
+          password: password.value,
+          phone: phone.value,
+          role: "User",
+        }),
+      });
+      if (response.status != 200) {
+        if (response.status === 409) {
+          window.alert("Email has been used!");
+          return;
+        }
+        console.log(err);
+      }
+      const data = await response.json();
+      const token = data.token;
+      localStorage.setItem("auth-token", token);
+      // userArr.push({
+      //   fullname: fullname.value,
+      //   email: email.value,
+      //   password: password.value,
+      //   phone: phone.value,
+      // });
+      // localStorage.setItem("userArr", JSON.stringify(userArr));
+      window.alert("Sign up successfully!");
+      handleChangePage("Sign In");
+    } catch (err) {
+      throw new Error({ status: err.status, message: err.message });
+    }
   }
   // this function to change to sign in modal
   function handleChange() {
@@ -182,7 +206,7 @@ export default function SignUp({ handleChangePage }) {
             disabled={
               !emailValid || !passwordValid || !fullFieldValid ? true : false
             }
-            onClick={handleSaveToStorage}
+            onClick={handleSignUp}
           >
             Sign Up
           </button>

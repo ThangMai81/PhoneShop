@@ -12,6 +12,10 @@ function ErrorPage() {
     title = "Cannot fetch";
     message = error.data.message;
   }
+  if (error.status === 401) {
+    title = "Unauthenticated!";
+    message = "Please back to login page and sign in!";
+  }
   return (
     <div className="grid grid-flow-row justify-center mt-[30px]">
       <h1 className="font-semibold text-2xl justify-self-center text-neutral-600 mb-[10px]">

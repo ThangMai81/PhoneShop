@@ -15,14 +15,11 @@ function addBrToText(text) {
   return result;
 }
 // Main component
-export default function Detail({ listItems, productId }) {
+export default function Detail({ Item, RelatedProducts }) {
+  console.log("Detail page: ", Item, RelatedProducts);
   const navigate = useNavigate();
-  const item = listItems.filter(
-    (eachItem) => eachItem._id["$oid"] === productId
-  )[0];
-  const sameCategoryItems = listItems.filter(
-    (eachItem) => eachItem.category === item.category
-  );
+  const item = Item;
+  const sameCategoryItems = RelatedProducts;
   // These following codes are to handle quantity update and addtocart
   const [numOfItem, setNumOfItem] = useState(1);
   const dispatch = useDispatch();
@@ -38,24 +35,33 @@ export default function Detail({ listItems, productId }) {
       return (prevNum += 1);
     });
   }
-  function handleAddToCart() {
-    const getUser = JSON.parse(localStorage.getItem("user-login")) || [];
-    console.log(getUser);
-    // if user has not logged in and want to buy product, he would have to log in first
-    if (typeof getUser === "object" && Object.keys(getUser).length === 0) {
-      window.alert("You haven't logged in yet!");
-      navigate("/PhoneShop/login");
-      // have logged in already
-    } else {
-      navigate("/PhoneShop/cart");
+  async function handleAddToCart() {
+    try {
+      const authToken = localStorage.getItem("auth-token") || {};
+      console.log(authToken);
+      // if user has not logged in and want to buy product, he would have to log in first
+      if (
+        typeof authToken === "object" &&
+        Object.keys(authToken).length === 0
+      ) {
+        window.alert("You haven't logged in yet!");
+        navigate("/PhoneShop/login");
+        // have logged in already
+      } else {
+        navigate("/PhoneShop/cart");
+      }
+      // mark that the add to cart has been clicked
+      const itemForCart = {
+        item: item,
+        quantity: numOfItem,
+      };
+      dispatch(cartSlice.actions.ADD_CART(itemForCart));
+      dispatch(addToCartButtonSlice.actions.haveClicked());
+    } catch (err) {
+      if (!err.statusCode) {
+        throw new Error({ status: 400, message: "Something wrong when login" });
+      }
     }
-    // mark that the add to cart has been clicked
-    const itemForCart = {
-      item: item,
-      quantity: numOfItem,
-    };
-    dispatch(cartSlice.actions.ADD_CART(itemForCart));
-    dispatch(addToCartButtonSlice.actions.haveClicked());
   }
   return (
     <div className="flex justify-center">
@@ -94,7 +100,7 @@ export default function Detail({ listItems, productId }) {
                   />
                   <span>{numOfItem}</span>
                   <MdArrowRight
-                    className="inline"
+                    className="inline cursor-pointer"
                     onClick={handleIncreaseQuantity}
                   />
                 </span>
@@ -133,7 +139,7 @@ export default function Detail({ listItems, productId }) {
               item={eachItem}
               index={1}
               showModal={false}
-              key={eachItem._id["$oid"]}
+              key={eachItem._id}
             />
           ))}
         </div>

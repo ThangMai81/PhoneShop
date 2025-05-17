@@ -8,16 +8,35 @@ import {
 } from "react-router-dom";
 import Detail from "./DetailPage/Detail";
 function DetailPage() {
-  const response = useRouteLoaderData("root");
+  const response = useLoaderData();
   const params = useParams();
   return (
     <Suspense>
       <Await resolve={response.data}>
         {(loadedData) => (
-          <Detail listItems={loadedData} productId={params.productId} />
+          <Detail
+            Item={loadedData.product}
+            RelatedProducts={loadedData.relatedProducts}
+          />
         )}
       </Await>
     </Suspense>
   );
 }
 export default DetailPage;
+
+async function loadProductWithId(params) {
+  const response = await fetch(`http://localhost:5000/product/${params}`);
+  console.log("response: ", response);
+  if (!response.ok) {
+    throw json({ message: "Cannot fetching data..." }, { status: 500 });
+  }
+  const data = await response.json();
+  return data;
+}
+
+export function loader({ params }) {
+  return defer({
+    data: loadProductWithId(params.productId),
+  });
+}

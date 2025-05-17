@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import DetailPage from "./pages/DetailPage";
@@ -15,8 +15,13 @@ import ErrorPage from "./pages/ErrorPage";
 import { loader as HomePageLoader } from "./pages/HomePage";
 import { Provider } from "react-redux";
 import { store } from "./store/ReduxStore";
+import { loader as DetailPageLoader } from "./pages/DetailPage";
+import HistoryPage from "./pages/HistoryPage";
+import { loader as HistoryPageLoader } from "./pages/HistoryPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
+import { loader as OrderDetailPageLoader } from "./pages/OrderDetailPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/PhoneShop",
     element: <RootLayout />,
@@ -29,6 +34,7 @@ const router = createBrowserRouter([
       {
         path: "detail/:productId",
         element: <DetailPage />,
+        loader: DetailPageLoader,
       },
       { path: "cart", element: <CartPage /> },
       {
@@ -37,6 +43,16 @@ const router = createBrowserRouter([
       },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      {
+        path: "transaction",
+        element: <HistoryPage />,
+        loader: HistoryPageLoader,
+      },
+      {
+        path: "transaction/:orderId",
+        element: <OrderDetailPage />,
+        loader: OrderDetailPageLoader,
+      },
     ],
   },
 ]);

@@ -54,11 +54,12 @@ export const loginSlice = createSlice({
     ON_LOGIN(state, action) {
       state.isLogin = true;
       // Save to local storage
-      localStorage.setItem("user-login", JSON.stringify(action.payload));
+      localStorage.setItem("auth-token", action.payload);
     },
     ON_LOGOUT(state) {
       state.isLogin = false;
-      localStorage.removeItem("user-login");
+      // localStorage.removeItem("user-login");
+      localStorage.removeItem("auth-token");
     },
   },
 });
@@ -73,8 +74,7 @@ export const cartSlice = createSlice({
       let existedItem = [];
       if (state.length > 0) {
         existedItem = state.filter(
-          (eachItem) =>
-            JSON.stringify(eachItem.item) == JSON.stringify(action.payload.item)
+          (eachItem) => eachItem.item._id === action.payload.item._id
         );
       }
       if (existedItem.length === 0) {
@@ -112,11 +112,11 @@ export const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state));
     },
     DELETE_CART(state, action) {
-      const index = state.findIndex((eachProduct) => {
-        return (
-          JSON.stringify(eachProduct.item) === JSON.stringify(action.payload)
-        );
-      });
+      console.log("Action.payload?: ", action.payload);
+      const index = state.findIndex(
+        (eachItem) => eachItem.item._id === action.payload._id
+      );
+      console.log("Index?: ", index);
       state.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(state));
     },

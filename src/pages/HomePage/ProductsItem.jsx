@@ -16,7 +16,8 @@ export default function ProductsItem({ item, index, showModal, popUpClass }) {
     }
     // if clicked in shop page
     else {
-      navigate(`/PhoneShop/detail/${item._id["$oid"]}`);
+      console.log("item._id?: ", item._id);
+      navigate(`/PhoneShop/detail/${item._id}`);
     }
   }
   let havePoped = false;
@@ -31,7 +32,7 @@ export default function ProductsItem({ item, index, showModal, popUpClass }) {
         <OverviewModal
           item={item}
           index={index}
-          className="duration-1000 translate-y-24"
+          className="duration-1000 translate-y-24 z-50"
         />
       )}
       <button

@@ -23,7 +23,7 @@ export default function SearchedPhone({ listItems }) {
         ? listItems.map((eachItem, index) => (
             <ProductsItem
               item={eachItem}
-              key={eachItem._id["$oid"]}
+              key={eachItem._id}
               index={index}
               showModal={false}
               // onClick={() => handleNavigateDetailPage(eachItem)}
@@ -32,7 +32,7 @@ export default function SearchedPhone({ listItems }) {
         : selectedItems.map((eachItem, index) => (
             <ProductsItem
               item={eachItem}
-              key={eachItem._id["$oid"]}
+              key={eachItem._id}
               index={index}
               showModal={false}
               // onClick={() => handleNavigateDetailPage(eachItem)}

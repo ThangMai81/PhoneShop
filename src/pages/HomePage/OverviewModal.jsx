@@ -15,7 +15,7 @@ import {
 function OverviewModal({ item, index }) {
   const navigate = useNavigate();
   function handleNavigateDetailPage() {
-    navigate(`detail/${item._id["$oid"]}`);
+    navigate(`detail/${item._id}`);
   }
   const dispatch = useDispatch();
   const popState = useSelector((state) => state.popUpReducer[index].popUp);
@@ -23,7 +23,7 @@ function OverviewModal({ item, index }) {
     dispatch(popSlice.actions.hide_popup(index));
   }
   return (
-    <dialog className="grid grid-cols-2 p-[10px] max-w-[900px] max-h-auto fixed top-[50%] bottom-[50%]">
+    <dialog className="grid grid-cols-2 p-[10px] max-w-[900px] max-h-auto fixed top-[50%] bottom-[50%] z-50 pointer-events-auto">
       <img src={item.img1} className="max-w-[420px]" />
       <div className="relative">
         <h1 className="italic font-semibold text-xl">{item.name}</h1>
@@ -34,7 +34,7 @@ function OverviewModal({ item, index }) {
         <button
           type="button"
           onClick={handleNavigateDetailPage}
-          className="text-white bg-neutral-800 py-[10px] px-[5px] mt-[10px]"
+          className="text-white bg-neutral-800 py-[10px] px-[5px] mt-[10px] cursor-pointer z-9999 pointer-events-auto"
         >
           <div className="flex relative h-[20px] w-[100px] ">
             <FaCartPlus className="absolute top-[15%] text-slate-400" />
