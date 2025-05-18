@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function ListOrders({ orders, userId }) {
   const navigate = useNavigate();
   function handleOrder(eachOrder) {
-    navigate(`/PhoneShop/transaction/${eachOrder._id}`);
+    navigate(`/transaction/${eachOrder._id}`);
   }
   return (
     <div className="overflow-x-auto">
