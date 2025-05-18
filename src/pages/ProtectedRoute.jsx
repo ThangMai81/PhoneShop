@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Outlet } from "react-router-dom";
+import { removeCookie } from "../store/Cookie";
 
 export default function ProtectedRoute() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.loginReducer.isLogin);
-  const authToken = localStorage.getItem("auth-token");
+  const authToken = getCookie("auth-token");
 
   useEffect(() => {
     async function verifyToken() {
@@ -26,11 +27,11 @@ export default function ProtectedRoute() {
         );
 
         if (!response.ok) {
-          localStorage.removeItem("auth-token");
+          removeCookie("auth-token");
           navigate("/login");
         }
       } catch (error) {
-        localStorage.removeItem("auth-token");
+        removeCookie("auth-token");
         navigate("/login");
       }
     }

@@ -54,12 +54,12 @@ export const loginSlice = createSlice({
     ON_LOGIN(state, action) {
       state.isLogin = true;
       // Save to local storage
-      localStorage.setItem("auth-token", action.payload);
+      document.cookie = `auth-token=${action.payload}; path=/; max-age=86400`;
     },
     ON_LOGOUT(state) {
       state.isLogin = false;
       // localStorage.removeItem("user-login");
-      localStorage.removeItem("auth-token");
+      document.cookie = "auth-token=; path=/; max-age=0";
     },
   },
 });

@@ -76,16 +76,8 @@ export default function SignIn({ handleChangePage }) {
         if (response.status === 401) {
           window.alert("Wrong account or password, please try another");
         }
-        console.log(err);
       }
-      // const authToken = JSON.parse(localStorage.getItem("auth-token")) || {};
-      // const valid = Object.keys(authToken).length > 0;
-      // if (!valid) {
-      //   window.alert(
-      //     "You have typed wrong account or password, please try again!"
-      //   );
-      //   passwordRef.current.value = "";
-      // } else {
+
       const resData = await response.json();
       window.alert("Login successfully!");
       console.log("Response token: ", resData);
@@ -95,7 +87,7 @@ export default function SignIn({ handleChangePage }) {
       if (haveClicked) {
         navigate("/cart");
       } else {
-        navigate("/");
+        navigate("/", { replace: true });
       }
       // }
     } catch (err) {
@@ -138,7 +130,7 @@ export default function SignIn({ handleChangePage }) {
           />
           <input
             ref={passwordRef}
-            type="text"
+            type="password"
             placeholder={`${!pswValidation.isFocused ? "Password" : ""}`}
             className={`${inputClass}`}
             onChange={handleCheckValidatePsw}

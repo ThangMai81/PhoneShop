@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { json, useNavigate } from "react-router-dom";
+import { getCookie } from "../store/Cookie";
 
 function CheckoutPage() {
   const listItems = useSelector((state) => state.cartReducer);
-  const authToken = localStorage.getItem("auth-token") || {};
+  const authToken = getCookie("auth-token");
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
@@ -48,6 +49,9 @@ function CheckoutPage() {
     if (!phoneNumber.trim()) {
       window.alert("Please fill in phone number");
       return false;
+    } else if (!/^0\d{9}$/.test(phoneNumber)) {
+      window.alert("Phone number must start with 0 and be exactly 10 digits");
+      return false;
     }
 
     if (!address.trim()) {
@@ -62,7 +66,7 @@ function CheckoutPage() {
     if (!validateForm()) {
       return;
     }
-    if (Object.keys(authToken).length === 0) {
+    if (!authToken || authToken.length === 0) {
       window.alert("Please sign in first!");
       navigate("/login");
       return;

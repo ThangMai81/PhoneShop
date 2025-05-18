@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Await, defer, json, useLoaderData } from "react-router-dom";
 import ListOrders from "./HomePage/ListOrders";
+import { getCookie } from "../store/Cookie";
 
 export default function HistoryPage() {
   const response = useLoaderData();
@@ -32,9 +33,9 @@ export default function HistoryPage() {
 }
 
 async function loadOrderHistory() {
-  const authToken = localStorage.getItem("auth-token") || {};
+  const authToken = getCookie("auth-token");
   console.log("Auth in history page: ", authToken);
-  if (Object.keys(authToken).length === 0) {
+  if (!authToken || authToken.length === 0) {
     throw json({ message: "Unauthorized!" }, { status: 401 });
   }
   const response = await fetch(

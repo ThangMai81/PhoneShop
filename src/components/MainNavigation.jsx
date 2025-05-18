@@ -8,9 +8,10 @@ import {
   popSlice,
 } from "../store/ReduxStore";
 import { useEffect, useState } from "react";
+import { getCookie } from "../store/Cookie";
 function MainNavigation() {
   const dispatch = useDispatch();
-  const authToken = localStorage.getItem("auth-token") || {};
+  const authToken = getCookie("auth-token");
   const [username, setUsername] = useState("");
   // This state is to ensure not show the modal of categories in homepage whenever click the
   // home again
@@ -22,13 +23,12 @@ function MainNavigation() {
       }
     });
   }
-  // const loginState = Object.keys(userLogin).length > 0;
   // This state is just to ensure if the user has loggined before, after they had got access to the website again,
   // the state isLogin in redux store must be true, to show the username that has been used in local storage
   const loginState = useSelector((state) => state.loginReducer.isLogin);
   useEffect(() => {
     // If there's user's login before ?
-    if (Object.keys(authToken).length > 0) {
+    if (authToken && authToken.length > 0) {
       console.log("Exist auth token?");
       try {
         async function getUsername() {
@@ -43,7 +43,6 @@ function MainNavigation() {
           );
           // Maybe not authorized
           if (response.status === 403 || response.status === 401) {
-            localStorage.removeItem("auth-token");
             dispatch(loginSlice.actions.ON_LOGOUT());
             throw json(
               { message: "Session expired. Please login again." },
@@ -84,7 +83,7 @@ function MainNavigation() {
           {/* Home + Shop button 1 div */}
           <div className={"flex w-[100px] justify-between"}>
             <NavLink
-              to="/PhoneShop"
+              to="/"
               className={({ isActive }) =>
                 isActive ? `text-yellow-500` : undefined
               }

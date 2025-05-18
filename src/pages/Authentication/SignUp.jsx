@@ -110,7 +110,7 @@ export default function SignUp({ handleChangePage }) {
       }
       const data = await response.json();
       const token = data.token;
-      localStorage.setItem("auth-token", token);
+      document.cookie = `auth-token=${token}; path=/; max-age=86400`;
       // userArr.push({
       //   fullname: fullname.value,
       //   email: email.value,
@@ -184,7 +184,7 @@ export default function SignUp({ handleChangePage }) {
             onBlur={handleValidateEmailInput}
           />
           <input
-            type="text"
+            type="password"
             placeholder={"Password"}
             className={`${inputClass} border-b-white`}
             onChange={handleGetPasswordValue}

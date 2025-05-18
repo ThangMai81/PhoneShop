@@ -6,6 +6,7 @@ import { IoTrashBinOutline } from "react-icons/io5";
 import { HiArrowLongRight, HiGiftTop } from "react-icons/hi2";
 import { HiArrowLongLeft } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../store/Cookie";
 function CartPage() {
   // To navigate if click "Proceed to checkout" or "Continue shopping"
   const navigate = useNavigate();
@@ -33,14 +34,13 @@ function CartPage() {
     }
   }
   useEffect(() => {
-    const authToken = localStorage.getItem("auth-token") || {};
-    if (Object.keys(authToken).length === 0) {
+    const authToken = getCookie("auth-token");
+    if (!authToken || authToken.length === 0) {
       window.alert("You must sign in first!");
       navigate("/login");
       return;
     }
   }, []);
-  console.log("List items?: ", typeof listItems);
   const showListItems = listItems.map((eachItem) => (
     <div
       key={eachItem.item._id}

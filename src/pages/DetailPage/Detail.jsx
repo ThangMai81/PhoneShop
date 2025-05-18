@@ -4,6 +4,7 @@ import ProductsItem from "../HomePage/ProductsItem";
 import { useDispatch } from "react-redux";
 import { addToCartButtonSlice, cartSlice } from "../../store/ReduxStore";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../store/Cookie";
 function addBrToText(text) {
   let result = <></>;
   let arrSplitByBr = text.split("\n\n");
@@ -37,13 +38,10 @@ export default function Detail({ Item, RelatedProducts }) {
   }
   async function handleAddToCart() {
     try {
-      const authToken = localStorage.getItem("auth-token") || {};
+      const authToken = getCookie("auth-token");
       console.log(authToken);
       // if user has not logged in and want to buy product, he would have to log in first
-      if (
-        typeof authToken === "object" &&
-        Object.keys(authToken).length === 0
-      ) {
+      if (!authToken || authToken.length === 0) {
         window.alert("You haven't logged in yet!");
         navigate("/login");
         // have logged in already
