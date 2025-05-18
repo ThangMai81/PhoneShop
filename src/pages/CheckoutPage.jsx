@@ -146,7 +146,7 @@ function CheckoutPage() {
               />
               <span className="uppercase italic mb-[5px]">Phone Number:</span>
               <input
-                type="text"
+                type="number"
                 placeholder="Enter Your Phone Number Here!"
                 className="border-2 px-[10px] py-[5px] mb-[15px]"
                 onChange={(e) => setPhoneNumber(e.target.value)}
