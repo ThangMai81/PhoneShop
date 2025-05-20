@@ -36,8 +36,9 @@ function MainNavigation() {
             "https://PhoneShopBackEnd.onrender.com/auth/get-full-name",
             {
               method: "POST",
+              credentials: "include",
               headers: {
-                Authorization: `Bearer ${authToken}`,
+                "Content-Type": "application/json",
               },
             }
           );

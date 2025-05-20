@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../store/Cookie";
 const userArr = [];
 export default function SignUp({ handleChangePage }) {
   const inputClass = "block border-2 border-neutral-300 p-[15px] ";
@@ -109,8 +110,7 @@ export default function SignUp({ handleChangePage }) {
         console.log(err);
       }
       const data = await response.json();
-      const token = data.token;
-      document.cookie = `auth-token=${token}; path=/; max-age=86400`;
+
       // userArr.push({
       //   fullname: fullname.value,
       //   email: email.value,

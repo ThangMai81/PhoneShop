@@ -79,8 +79,8 @@ function CheckoutPage() {
         "https://PhoneShopBackEnd.onrender.com/order",
         {
           method: "POST",
+          credentials: "include",
           headers: {
-            Authorization: `Bearer ${authToken}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({

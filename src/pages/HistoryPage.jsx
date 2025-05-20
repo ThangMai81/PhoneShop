@@ -42,8 +42,8 @@ async function loadOrderHistory() {
     "https://PhoneShopBackEnd.onrender.com/order/history",
     {
       method: "POST",
+      credentials: "include",
       headers: {
-        Authorization: `Bearer ${authToken}`,
         "Content-Type": "application/json",
       },
     }

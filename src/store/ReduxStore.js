@@ -53,8 +53,6 @@ export const loginSlice = createSlice({
   reducers: {
     ON_LOGIN(state, action) {
       state.isLogin = true;
-      // Save to local storage
-      document.cookie = `auth-token=${action.payload}; path=/; max-age=86400`;
     },
     ON_LOGOUT(state) {
       state.isLogin = false;

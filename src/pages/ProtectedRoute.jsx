@@ -20,8 +20,9 @@ export default function ProtectedRoute() {
           "https://PhoneShopBackEnd.onrender.com/auth/verify-token",
           {
             method: "POST",
+            credentials: "include",
             headers: {
-              Authorization: `Bearer ${authToken}`,
+              "Content-Type": "application/json",
             },
           }
         );
