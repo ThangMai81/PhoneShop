@@ -71,6 +71,7 @@ export default function SignIn({ handleChangePage }) {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
         }
       );
       if (response.status !== 200) {
@@ -80,6 +81,7 @@ export default function SignIn({ handleChangePage }) {
       }
 
       const resData = await response.json();
+      console.log("response after sign up: ", resData);
       console.log("Cookie after sign up: ", getCookie("auth-token"));
       window.alert("Login successfully!");
       dispatch(loginSlice.actions.ON_LOGIN(resData.token));

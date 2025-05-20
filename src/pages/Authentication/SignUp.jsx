@@ -100,6 +100,7 @@ export default function SignUp({ handleChangePage }) {
             phone: phone.value,
             role: "User",
           }),
+          credentials: "include",
         }
       );
       if (response.status != 200) {
@@ -110,6 +111,7 @@ export default function SignUp({ handleChangePage }) {
         console.log(err);
       }
       const data = await response.json();
+      console.log("response after sign up: ", data);
       console.log("Cookie after sign up: ", getCookie("auth-token"));
       // userArr.push({
       //   fullname: fullname.value,
