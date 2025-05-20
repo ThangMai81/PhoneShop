@@ -79,8 +79,8 @@ export default function SignIn({ handleChangePage }) {
       }
 
       const resData = await response.json();
+      console.log("Cookie after sign up: ", getCookie("auth-token"));
       window.alert("Login successfully!");
-      console.log("Response token: ", resData);
       dispatch(loginSlice.actions.ON_LOGIN(resData.token));
       // ** these following codes are not belong to this component, this is to navigate to the cart page after logged in
       console.log(haveClicked);

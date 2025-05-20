@@ -110,7 +110,7 @@ export default function SignUp({ handleChangePage }) {
         console.log(err);
       }
       const data = await response.json();
-
+      console.log("Cookie after sign up: ", getCookie("auth-token"));
       // userArr.push({
       //   fullname: fullname.value,
       //   email: email.value,
