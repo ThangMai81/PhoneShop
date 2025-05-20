@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdArrowLeft, MdArrowRight } from "react-icons/md";
 import ProductsItem from "../HomePage/ProductsItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCartButtonSlice, cartSlice } from "../../store/ReduxStore";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../store/Cookie";
@@ -21,6 +21,7 @@ export default function Detail({ Item, RelatedProducts }) {
   const navigate = useNavigate();
   const item = Item;
   const sameCategoryItems = RelatedProducts;
+  const loginState = useSelector((state) => state.loginReducer.isLogin);
   // These following codes are to handle quantity update and addtocart
   const [numOfItem, setNumOfItem] = useState(1);
   const dispatch = useDispatch();
@@ -38,10 +39,8 @@ export default function Detail({ Item, RelatedProducts }) {
   }
   async function handleAddToCart() {
     try {
-      const authToken = getCookie("auth-token");
-      console.log(authToken);
       // if user has not logged in and want to buy product, he would have to log in first
-      if (!authToken || authToken.length === 0) {
+      if (!loginState) {
         window.alert("You haven't logged in yet!");
         navigate("/login");
         // have logged in already
@@ -56,6 +55,7 @@ export default function Detail({ Item, RelatedProducts }) {
       dispatch(cartSlice.actions.ADD_CART(itemForCart));
       dispatch(addToCartButtonSlice.actions.haveClicked());
     } catch (err) {
+      console.log("Err: ", err);
       if (!err.statusCode) {
         throw new Error({ status: 400, message: "Something wrong when login" });
       }

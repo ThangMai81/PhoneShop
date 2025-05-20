@@ -1,22 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, json } from "react-router-dom";
 import { getCookie, removeCookie } from "../store/Cookie";
 
 export default function ProtectedRoute() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.loginReducer.isLogin);
-  const authToken = getCookie("auth-token");
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     async function verifyToken() {
-      if (!authToken || !isLogin) {
-        navigate("/login");
-        return;
-      }
-
       try {
-        const response = await fetch(
+        const res = await fetch(
           "https://PhoneShopBackEnd.onrender.com/auth/verify-token",
           {
             method: "POST",
@@ -27,18 +22,28 @@ export default function ProtectedRoute() {
           }
         );
 
-        if (!response.ok) {
-          removeCookie("auth-token");
+        if (!res.ok) {
+          window.alert("Please sign in first!");
           navigate("/login");
         }
+
+        console.log("Response in verifyToken: ", await res.json());
       } catch (error) {
-        removeCookie("auth-token");
+        window.alert("Please sign in first!");
         navigate("/login");
+      } finally {
+        setChecking(false);
       }
     }
 
-    verifyToken();
-  }, [authToken, isLogin, navigate]);
+    if (!isLogin) {
+      navigate("/login");
+    } else {
+      verifyToken();
+    }
+  }, [isLogin, navigate]);
 
-  return isLogin ? <Outlet /> : null;
+  if (checking) return null;
+
+  return <Outlet />;
 }

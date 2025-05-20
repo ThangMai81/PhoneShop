@@ -112,7 +112,6 @@ export default function SignUp({ handleChangePage }) {
       }
       const data = await response.json();
       console.log("response after sign up: ", data);
-      console.log("Cookie after sign up: ", getCookie("auth-token"));
       // userArr.push({
       //   fullname: fullname.value,
       //   email: email.value,

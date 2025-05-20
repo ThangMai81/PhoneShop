@@ -5,7 +5,6 @@ import { getCookie } from "../store/Cookie";
 
 function CheckoutPage() {
   const listItems = useSelector((state) => state.cartReducer);
-  const authToken = getCookie("auth-token");
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
@@ -13,6 +12,8 @@ function CheckoutPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const loginState = useSelector((state) => state.loginReducer.isLogin);
 
   const showListItems = listItems.map((eachItem) => (
     <div
@@ -66,7 +67,7 @@ function CheckoutPage() {
     if (!validateForm()) {
       return;
     }
-    if (!authToken || authToken.length === 0) {
+    if (!loginState) {
       window.alert("Please sign in first!");
       navigate("/login");
       return;

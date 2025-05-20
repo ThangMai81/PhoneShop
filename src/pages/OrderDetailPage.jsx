@@ -2,6 +2,7 @@ import { Await, defer, json, useLoaderData } from "react-router-dom";
 import OrderDetail from "./HomePage/OrderDetail";
 import { Suspense } from "react";
 import { getCookie } from "../store/Cookie";
+import { useSelector } from "react-redux";
 
 export default function OrderDetailPage() {
   const response = useLoaderData();
@@ -52,13 +53,7 @@ export default function OrderDetailPage() {
 }
 
 async function loadOrderById(params) {
-  console.log("Touch ? ");
   const { orderId } = params;
-  const authToken = getCookie("auth-token");
-  console.log("Auth in history page: ", authToken);
-  if (!authToken || authToken.length === 0) {
-    throw json({ message: "Unauthorized!" }, { status: 401 });
-  }
   const response = await fetch(
     `https://PhoneShopBackEnd.onrender.com/order/history/${orderId}`,
     {

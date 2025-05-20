@@ -12,6 +12,8 @@ function CartPage() {
   const navigate = useNavigate();
   const listItems = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
+
+  const loginState = useSelector((state) => state.loginReducer.isLogin);
   function handleDecreaseQuantity(eachItem) {
     console.log(eachItem);
     const data = {
@@ -34,8 +36,7 @@ function CartPage() {
     }
   }
   useEffect(() => {
-    const authToken = getCookie("auth-token");
-    if (!authToken || authToken.length === 0) {
+    if (!loginState) {
       window.alert("You must sign in first!");
       navigate("/login");
       return;

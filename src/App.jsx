@@ -20,6 +20,7 @@ import HistoryPage from "./pages/HistoryPage";
 import { loader as HistoryPageLoader } from "./pages/HistoryPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import { loader as OrderDetailPageLoader } from "./pages/OrderDetailPage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createHashRouter([
   {
@@ -37,21 +38,26 @@ const router = createHashRouter([
         loader: DetailPageLoader,
       },
       { path: "cart", element: <CartPage /> },
-      {
-        path: "checkout",
-        element: <CheckoutPage />,
-      },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
       {
-        path: "transaction",
-        element: <HistoryPage />,
-        loader: HistoryPageLoader,
-      },
-      {
-        path: "transaction/:orderId",
-        element: <OrderDetailPage />,
-        loader: OrderDetailPageLoader,
+        element: <ProtectedRoute />, // Layout route bảo vệ
+        children: [
+          {
+            path: "checkout",
+            element: <CheckoutPage />,
+          },
+          {
+            path: "transaction",
+            element: <HistoryPage />,
+            loader: HistoryPageLoader,
+          },
+          {
+            path: "transaction/:orderId",
+            element: <OrderDetailPage />,
+            loader: OrderDetailPageLoader,
+          },
+        ],
       },
     ],
   },

@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { getCookie } from "../store/Cookie";
 function MainNavigation() {
   const dispatch = useDispatch();
-  const authToken = getCookie("auth-token");
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
   // This state is to ensure not show the modal of categories in homepage whenever click the
   // home again
   const popUpArr = useSelector((state) => state.popUpReducer);
@@ -28,8 +28,7 @@ function MainNavigation() {
   const loginState = useSelector((state) => state.loginReducer.isLogin);
   useEffect(() => {
     // If there's user's login before ?
-    if (authToken && authToken.length > 0) {
-      console.log("Exist auth token?");
+    if (loginState) {
       try {
         async function getUsername() {
           const response = await fetch(
@@ -52,7 +51,7 @@ function MainNavigation() {
           } else if (response.status === 500) {
             throw json({ message: "Something wrong..." }, { status: 500 });
           }
-          dispatch(loginSlice.actions.ON_LOGIN(authToken));
+          dispatch(loginSlice.actions.ON_LOGIN());
           const data = await response.json();
           setUsername(data.name);
         }
@@ -66,6 +65,7 @@ function MainNavigation() {
     dispatch(loginSlice.actions.ON_LOGOUT());
     // *this is for navigating to main part
     dispatch(addToCartButtonSlice.actions.haveNotClicked());
+    navigate("/login");
   }
   return (
     <>
