@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartButtonSlice, loginSlice } from "../../store/ReduxStore";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../store/Cookie";
 export default function SignIn({ handleChangePage }) {
   // ** this variable is only for navigating to cart page if has logged in successfully  and before that, user has
   // pressed add to cart button (want to buy some products but have not logged in yet)
