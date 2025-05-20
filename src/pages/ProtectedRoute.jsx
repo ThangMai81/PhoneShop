@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Outlet } from "react-router-dom";
-import { removeCookie } from "../store/Cookie";
+import { getCookie, removeCookie } from "../store/Cookie";
 
 export default function ProtectedRoute() {
   const navigate = useNavigate();
