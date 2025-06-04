@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../store/Cookie";
 const userArr = [];
 export default function SignUp({ handleChangePage }) {
-  const inputClass = "block border-2 border-neutral-300 p-[15px] ";
-  const warningEmailClass = "text-red-700 italic absolute top-[40px]";
-  const warningPasswordClass = "text-red-700 italic absolute top-[60px]";
-  const warningMissingClass = "text-red-700 italic absolute top-[80px]";
+  const inputClass = "block border-2 border-neutral-300 p-[15px] w-full";
+  const warningEmailClass = "text-red-400 italic text-[12px]";
+  const warningPasswordClass = "text-red-400 italic text-[12px]";
+  const warningMissingClass = "text-red-400 italic text-[12px]";
+  const inputBoxClass = "relative h-[65px]"
   const [fullname, setFullname] = useState({
     value: 1, // no first check when user get first access to the login page
     isFocused: false,
@@ -130,36 +131,12 @@ export default function SignUp({ handleChangePage }) {
     handleChangePage("Sign In");
   }
   return (
-    <div className="absolute top-[5%] left-[30%] p-[20px] w-[400px] h-[470px] text-center border-2 border-neutral-300 shadow shadow-indigo-500/40 rounded-xl bg-white">
-      <h1 className="italic mb-[70px]">Sign Up</h1>
+    <div className="absolute top-[5%] left-[30%] p-[20px] pb-0 w-[400px] text-center border-2 border-neutral-300 shadow shadow-indigo-500/40 rounded-xl bg-white">
+      <h1 className="italic">Sign Up</h1>
       <div>
-        <div className="flex flex-row">
-          {/* If not correct syntax */}
-          {!emailValid &&
-            !email.isFocused &&
-            email.value !== 1 &&
-            !sameEmail && (
-              <span className={warningEmailClass}>
-                Please type in correct syntax of email!
-              </span>
-            )}
-          {/* If same email has been registered in localStorage */}
-          {!emailValid &&
-            !email.isFocused &&
-            email.value !== 1 &&
-            sameEmail && (
-              <span className={warningEmailClass}>
-                This email has been registered!
-              </span>
-            )}
-          {/* If password is less then 8 chars */}
-          {!passwordValid && !password.isFocused && password.value !== 1 && (
-            <span className={warningPasswordClass}>
-              Please type in password with more than 8 characters!
-            </span>
-          )}
-          {/* If any field is missing */}
-          {!fullFieldValid &&
+        <div className={`${inputBoxClass}`}>
+            {/* If any field is missing */}
+            {!fullFieldValid &&
             (!password.isFocused ||
               !email.isFocused ||
               !fullname.isFocused ||
@@ -169,38 +146,61 @@ export default function SignUp({ handleChangePage }) {
               </span>
             )}
         </div>
-        <div className="grid grid-rows-4 mb-[20px]">
-          <input
-            type="text"
-            placeholder={"Full Name"}
-            className={`${inputClass} border-b-white`}
-            onChange={handleGetFullnameValue}
-            onBlur={handleValidateFullnameInput}
-          />
-          <input
-            type="text"
-            placeholder={"Email"}
-            className={`${inputClass} border-b-white`}
-            onChange={handleGetEmailValue}
-            onBlur={handleValidateEmailInput}
-          />
-          <input
-            type="password"
-            placeholder={"Password"}
-            className={`${inputClass} border-b-white`}
-            onChange={handleGetPasswordValue}
-            onBlur={handleValidatePasswordInput}
-          />
-          <input
-            type="text"
-            placeholder={"Phone"}
-            className={`${inputClass}`}
-            onChange={handleGetPhoneValue}
-            onBlur={handleValidatePhoneInput}
-          />
+        <div className="grid grid-rows-4 gap-[20px] mb-[20px]">
+          <div className={`${inputBoxClass}`}>
+            <input
+              type="text"
+              placeholder={"Full Name"}
+              className={`${inputClass}`}
+              onChange={handleGetFullnameValue}
+              onBlur={handleValidateFullnameInput}
+            />
+          </div>
+          <div className={`${inputBoxClass}`}>
+            <input
+              type="text"
+              placeholder={"Email"}
+              className={`${inputClass}`}
+              onChange={handleGetEmailValue}
+              onBlur={handleValidateEmailInput}
+            />
+            {/* If not correct syntax */}
+            {!emailValid &&
+              !email.isFocused &&
+              email.value !== 1 &&
+              !sameEmail && (
+                <span className={warningEmailClass}>
+                  Please type in correct syntax of email!
+                </span>
+            )}
+          </div>
+          <div className={`${inputBoxClass}`}>
+            <input
+              type="password"
+              placeholder={"Password"}
+              className={`${inputClass}`}
+              onChange={handleGetPasswordValue}
+              onBlur={handleValidatePasswordInput}
+            />
+            {/* If password is less then 8 chars */}
+            {!passwordValid && !password.isFocused && password.value !== 1 && (
+              <span className={warningPasswordClass}>
+                Please type in password with more than 8 characters!
+              </span>
+            )}
+          </div>
+          <div className={`${inputBoxClass}`}>
+            <input
+              type="text"
+              placeholder={"Phone"}
+              className={`${inputClass}`}
+              onChange={handleGetPhoneValue}
+              onBlur={handleValidatePhoneInput}
+            />
+          </div>
           <button
             type="button"
-            className={`bg-neutral-700 text-xs text-white uppercase h-[50px] mt-[20px] ${
+            className={`bg-neutral-700 text-xs text-white uppercase h-[50px] ${
               // Not valid => add opacity
               !emailValid || !passwordValid || !fullFieldValid
                 ? "opacity-20"
@@ -215,7 +215,7 @@ export default function SignUp({ handleChangePage }) {
             Sign Up
           </button>
           <span className="italic text-slate-300">
-            Login?
+            Already have an account?
             <span
               className="text-cyan-600 cursor-pointer"
               onClick={handleChange}

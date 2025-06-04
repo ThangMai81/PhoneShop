@@ -60,7 +60,7 @@ function MainNavigation() {
         console.log(err);
       }
     }
-  }, [username]);
+  }, []);
   function handleLogOut() {
     dispatch(loginSlice.actions.ON_LOGOUT());
     // *this is for navigating to main part
@@ -103,7 +103,7 @@ function MainNavigation() {
             </NavLink>
           </div>
           {/* Cart + login button 1 div */}
-          <div className={"flex w-[100px] justify-between mr-[60px]"}>
+          <div className={`flex justify-between mr-[60px] ${!loginState ? "w-[100px]" : "w-[200px]"}`}>
             <NavLink
               to="cart"
               className={({ isActive }) =>
@@ -123,23 +123,23 @@ function MainNavigation() {
                   isActive ? `text-yellow-500` : undefined
                 }
               >
-                <div className="relative h-[30px] w-[100px]">
+                <div className="relative h-[30px] w-[200px]">
                   <FaUser className="absolute top-[15%] text-slate-400" />
                   <div className="absolute left-[20px]">Login</div>
                 </div>
               </NavLink>
             ) : (
-              <div className="relative h-[30px] w-[150px]">
-                <FaUser className="absolute top-[15%] text-slate-400" />
-                <div className="absolute left-[20px]">
-                  {username}
-                  <IoMdArrowDropdown className="absolute top-[20%] left-[30px]" />
-                </div>
-                <div
-                  className="absolute left-[70px] w-[100px] cursor-pointer"
-                  onClick={handleLogOut}
-                >
-                  (Logout)
+              <div className="flex flex-row justify-center items-start relative h-[30px] w-[300px]">
+                <div className="w-[300px] flex flex-row items-center">
+                  <FaUser className="text-slate-400 mr-[5px]" />
+                  <div>{username}</div>
+                  <IoMdArrowDropdown className="" />
+                  <div
+                    className="w-[100px] cursor-pointer"
+                    onClick={handleLogOut}
+                  >
+                    (Logout)
+                  </div>
                 </div>
               </div>
             )}
