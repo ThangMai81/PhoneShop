@@ -29,8 +29,8 @@ export default function SignIn({ handleChangePage }) {
   const emailValidation =
     emailInput.value !== "" && regex.test(emailInput.value);
   const pswValidation = passwordInput.value !== "";
-  const warningEmailClass = "text-red-700 italic absolute top-[40px] text-[12px]";
-  const warningPasswordClass = "text-red-700 italic absolute top-[190px] text-[12px]";
+  const warningEmailClass = "text-red-400 italic absolute top-[40px] text-[12px]";
+  const warningPasswordClass = "text-red-400 italic absolute top-[190px] text-[12px]";
   function handleCheckValidateEmail(event) {
     setEmailInput({
       value: event.target.value,
